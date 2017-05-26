@@ -1,0 +1,30 @@
+@(maybeErrorMessage: Option[String])
+<html lang="en">
+<head>
+  <title>Login page</title>
+  <link rel="stylesheet" href="@routes.Assets.versioned("compiled/styles.css")">
+  <!-- This CSS is obviously missing because I didn't do the UI part.-->
+  <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+</head>
+
+<body>
+  <form method="post" action="/login">
+    <fieldset>
+      <legend>Login</legend>
+      @maybeErrorMessage.map { errorMessage =>
+        <span class = "label bg--error">@errorMessage</span> <!-- Again, the "class" is missing from the UI part-->
+        <!-- errorMessage only shows up if @maybeErrorMessage is not empty -->
+      }
+      <p>
+        <label for="username">Username:</label>
+        <input id="username" type="text" name="username" />
+      </p>
+      <p>
+        <label for="password">Password:</label>
+        <input id="password" type="password" name="password" />
+      </p>
+      <button type="submit" class="button--sm">Login</button>
+    </fieldset>
+  </form>
+</body>
+</html>

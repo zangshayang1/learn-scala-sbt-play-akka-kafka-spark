@@ -1,0 +1,22 @@
+ls -a
+set scalaVersion = 2.11.7
+set scalaVersion = "2.11.7"
+set scalaVersion := "2.11.7"
+set organization := "com.appliedscala.sbt"
+set version := "1.0-SNAPSHOT"
+session save
+exit
+show common/name
+common/compile
+backend/compile
+show backend/name
+run
+run backend
+run GreetingPrintService
+exit
+show scalaVersion
+exit
+clean
+compile
+exit
+testProd

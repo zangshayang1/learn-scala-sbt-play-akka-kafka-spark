@@ -1,0 +1,22 @@
+
+### enter sbt console
+> sbt
+
+### development testing
+> sbt run
+
+### production testing
+> sbt testProd
+
+Note:
+Ctrl + D doesn't kill the process running in the background.
+The process ID can be found in target/universal/stage/
+
+### generate secret
+> playGenerateSecret
+
+### build the app distribution
+> sbt clean compile stage
+
+Note:
+Everything will be in target/universal/stage

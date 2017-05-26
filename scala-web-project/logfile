@@ -1,0 +1,45 @@
+LOG:  database system was shut down at 2017-05-19 22:15:54 PDT
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  syntax error at or near "createdb" at character 1
+STATEMENT:  createdb -O scalauser scaladb
+	list
+	;
+ERROR:  syntax error at or near "CREATEDB" at character 1
+STATEMENT:  CREATEDB -O scalauser scaladb;
+ERROR:  syntax error at or near ";" at character 35
+STATEMENT:  CREATE DATABASE scalauser scaladb
+	;
+ERROR:  syntax error at or near ";" at character 34
+STATEMENT:  CREATE DATABASE scalauser scaladb;
+ERROR:  syntax error at or near "-" at character 17
+STATEMENT:  CREATE DATABASE -O scalauser scaladb;
+ERROR:  syntax error at or near "-" at character 17
+STATEMENT:  CREATE DATABASE -U scalauser scaladb;
+ERROR:  syntax error at or near "createdb" at character 1
+STATEMENT:  createdb -U postgres scaladb
+	;
+ERROR:  SELECT * with no tables specified is not valid at character 8
+STATEMENT:  SELECT *;
+FATAL:  database "template0" is not currently accepting connections
+ERROR:  SELECT * with no tables specified is not valid at character 8
+STATEMENT:  SELECT *
+	;
+ERROR:  syntax error at or near "SELECT" at character 23
+STATEMENT:  DROP DATABASE scaladb
+	SELECT * FROM users;
+ERROR:  cannot drop the currently open database
+STATEMENT:  DROP DATABASE scaladb;
+ERROR:  syntax error at or near "DATABSE" at character 8
+STATEMENT:  CREATE DATABSE scaladb
+	CREATE DATABSE scaladb;
+LOG:  invalid length of startup packet
+LOG:  invalid length of startup packet
+LOG:  invalid length of startup packet
+LOG:  invalid length of startup packet
+FATAL:  database "shayangzang" does not exist
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
