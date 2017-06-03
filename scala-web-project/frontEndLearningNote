@@ -1,0 +1,33 @@
+### install node version manager
+> brew install nvm
+
+Setup includes: export NVM_DIR and activate nvm.sh.
+Please refer to sys.built for details.
+
+### initiate frontend project
+> npm init
+
+A package.json file will be created to collect dependencies. So when you install dependencies like this: "> npm i react". It will automatically be written down in package.json.
+The dependencies will be installed under node_modules dir.
+
+
+## Webpack
+
+Developers will create multiple JS modules and reference them across all the webpages.
+
+This is when webpack comes in as a bundler which:
+1. combines all the JS modules in ui
+2. produces a single bundle.js
+3. stores it in public/compiled dir as static resources for browser to use.
+
+webpack.config.js file in the root dir specify the above 3 points.
+
+### prepare ui dir to store frontend source code
+> mkdir ui
+
+### prepare public/compiled for webpack
+> mkdir public/compiled
+
+### enable interaction with webpack in terminal
+Add the following line to package.file under "script" section:
+"watch": "webpack --watch"

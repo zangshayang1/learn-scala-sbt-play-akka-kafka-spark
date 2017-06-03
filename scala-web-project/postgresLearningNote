@@ -76,3 +76,10 @@ Success. You can now start the database server using:
 
     pg_ctl -D postgres -l logfile start
 """
+
+### find all the existing clusters
+> find / -name PG_VERSION
+
+Note:
+1. current cluster is sitting at /usr/local/var/postgres
+2. google "postgres database file layout" to see what each file does under this dir
