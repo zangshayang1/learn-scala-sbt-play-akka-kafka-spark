@@ -1,12 +1,12 @@
 import React from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
 class TagManager extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       text: '',
-      tags: []
     };
   };
 
@@ -16,26 +16,32 @@ class TagManager extends React.Component {
 
   handleResponse = (response) => {
     if (response.status == 200) {
-      this.setState({
-        text: '',
-        tags: response.data
-      })
+      this.props.dispatch({
+        type: 'tags_updated',
+        data: response.data
+      });
     } else {
       console.error(response.statusText);
     }
   };
 
   addTag = () => {
-    const text = this.state.text;
-    const isValid = this.state.tags.findIndex((el) => {
-      return el.text === text; }) === -1;
-    if (isValid) {
-      axios.post("/api/createTag", { "text" : text }).then(this.handleResponse);
-    }
-  };
+     const text = this.state.text;
+     const isValid = this.props.tags.findIndex((el) => {
+       return el.text === text;
+     }) === -1;
+     if (isValid) {
+       axios.post("/api/createTag", { "text" : text }).then(() => {
+         this.setState({
+           text: ''
+         })
+       });
+     }
+   };
 
   deleteTag = (id) => { return () => {
-    axios.post("/api/deleteTag", { "id" : id }).then(this.handleResponse); };
+    axios.post("/api/deleteTag", { "id" : id });
+    };
   };
 
   handleInput = (event) => {
@@ -51,7 +57,7 @@ class TagManager extends React.Component {
   };
 
   render = () => {
-    const tags = this.state.tags;
+    const tags = this.props.tags;
     return <div className="tag-manager">
       <div className="tag-manager__input-panel">
         <div className="tag-manager__input-panel__input">
@@ -74,7 +80,11 @@ class TagManager extends React.Component {
       </div>
     </div>
   }
-
 }
 
-export default TagManager;
+const mapStateToProps = (state) => {
+    console.log('mapStateToProps', state);
+    return { tags: state.tags }
+}
+
+export default connect(mapStateToProps)(TagManager);

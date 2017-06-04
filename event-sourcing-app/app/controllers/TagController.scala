@@ -43,21 +43,23 @@ class TagController(tagEventProducer: TagEventProducer,
       Consequently, the BadRequest is wrapped with Future[]
   */
   import scala.concurrent.ExecutionContext.Implicits.global // !@ Implicits @! NOT implicits, NOT Implicit ...
-  import scala.concurrent.Future
-  def createTag() = userAuthAction.async { implicit request =>
+  def createTag() = userAuthAction { implicit request =>
     createTagForm.bindFromRequest.fold(
-      formWithErrors => Future.successful(BadRequest),
+      formWithErrors => BadRequest,
       userData => {
-        tagEventProducer.createTag(userData.text, request.user.userId).map { tags => Ok(Json.toJson(tags)) }
-        // Json.toJson resolves around an implicit Json (de)serializer provided in Tag.scala
+        tagEventProducer.createTag(userData.text, request.user.userId)
+        Ok
       }
     )
   }
 
-  def deleteTag() = userAuthAction.async { implicit request =>
+  def deleteTag() = userAuthAction { implicit request =>
     deleteTagForm.bindFromRequest.fold(
-      formWithErrors => Future.successful(BadRequest),
-      userData => tagEventProducer.deleteTag(userData.id, request.user.userId).map { tag => Ok(Json.toJson(tag)) }
+      formWithErrors => BadRequest,
+      userData => {
+        tagEventProducer.deleteTag(userData.id, request.user.userId)
+        Ok
+      }
     )
   }
 

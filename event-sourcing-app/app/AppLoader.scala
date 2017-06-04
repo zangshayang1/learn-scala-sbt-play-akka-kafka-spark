@@ -59,7 +59,9 @@ trait AppComponents extends BuiltInComponents
   lazy val tagEventProducer = wire[TagEventProducer]
   lazy val tagController = wire[TagController]
 
-
+  lazy val tagEventConsumer = wire[TagEventConsumer]
+  lazy val logRecordConsumer = wire[LogRecordConsumer]
+  lazy val consumerAggregator = wire[ConsumerAggregator]
 
   override lazy val dynamicEvolutions = new DynamicEvolutions
 

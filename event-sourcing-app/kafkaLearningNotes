@@ -1,0 +1,18 @@
+
+## Kafka
+
+### install
+> brew install kafka // dependency zookeeper included
+
+### Start included zookeeper
+> zookeeper-server-start <kafka-install-root-dir>/libexec/config/zookeeper.properties
+This is a link to zookeeper config file stored at /usr/local/etc/kafka, including where data reside and which port it uses.
+
+### Start kafka server
+> kafka-server-start <kafka-install-root-dir>/libexec/config/server.properties
+
+### Otherwise, you can use brew services to start/stop these two
+> brew services start zookeeper
+> brew services start kafka
+
+Now you are ready to use https://kafka.apache.org/quickstart
