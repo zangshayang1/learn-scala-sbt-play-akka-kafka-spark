@@ -69,4 +69,8 @@ class TagController(tagEventProducer: TagEventProducer,
     val tagsF = readService.getTags
     tagsF.map { tags => Ok(Json.toJson(tags)) }
   }
+
+  def test = Action { implicit request =>
+    Ok("hello")
+  }
 }

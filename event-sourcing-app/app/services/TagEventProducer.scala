@@ -6,7 +6,7 @@ import akka.actor.ActorSystem
 import java.util.UUID
 import org.joda.time.DateTime
 
-import model.LogDao
+import dao.LogDao
 import model.Tag
 import scala.util.{Failure, Success}
 

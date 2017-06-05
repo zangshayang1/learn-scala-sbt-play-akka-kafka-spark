@@ -10,6 +10,8 @@ class TagManager extends React.Component {
     };
   };
 
+  // this override method defines what to do right after the component is mounted
+  // axios makes dealing with HTTP request easy for react
   componentDidMount = () => {
     axios.get("/api/tags").then(this.handleResponse);
   };
@@ -29,7 +31,10 @@ class TagManager extends React.Component {
     const text = this.state.text;
     const isValid = this.state.tags.findIndex((el) => {
       return el.text === text; }) === -1;
+
     if (isValid) {
+      // this is to send data to backend
+      // how about render result to frontend?
       axios.post("/api/createTag", { "text" : text }).then(this.handleResponse);
     }
   };
@@ -55,6 +60,7 @@ class TagManager extends React.Component {
     return <div className="tag-manager">
       <div className="tag-manager__input-panel">
         <div className="tag-manager__input-panel__input">
+
           <input type="text" className="form-control"
                  onKeyPress={this.handleKeyPress}
                  placeholder="Enter a new tag and press enter"
@@ -65,10 +71,12 @@ class TagManager extends React.Component {
       <div className="tag-manager__cloud-panel">
         <div className="tag-manager__cloud-panel__available-tags">
           {tags.map( (tag) => {
-            return <span className="label label-primary"
-                         key={tag.id}>{tag.text}
+            // simple render: return <p>{tag.text}</p>
+            // <p></p> helps to put each tag in a newline
+            return <p><span className="label label-primary"
+                         key={tag.id}> {tag.text}
               <a className="remove-tag-link"
-                 onClick={this.deleteTag(tag.id)}>x</a></span>
+                 onClick={this.deleteTag(tag.id)}>x</a></span></p>
           })}
         </div>
       </div>

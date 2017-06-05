@@ -16,6 +16,7 @@ POST    /api/createTag              controllers.TagController.createTag
 POST    /api/deleteTag              controllers.TagController.deleteTag
 GET     /api/tags                   controllers.TagController.getTags
 
+GET     /test                       controllers.TagController.test
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

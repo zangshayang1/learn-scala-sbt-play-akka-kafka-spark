@@ -8,6 +8,8 @@ import services.AuthService
 import scala.concurrent.Future
 import scala.util.{Failure, Success}
 
+// when users send requests to localhost:9000/, the request may or may not include user info
+// so this case class wraps around users' request and make user field optional.
 case class UserAwareRequest[A](user: Option[User],
     request: Request[A]) extends WrappedRequest[A](request)
 

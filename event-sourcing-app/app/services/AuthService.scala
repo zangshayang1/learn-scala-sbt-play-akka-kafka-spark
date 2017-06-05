@@ -22,6 +22,12 @@ class AuthService(sessionDao: SessionDao, userDao: UserDao) {
     userT.flatMap { user =>
       createCookie(user)
     }
+    // still not quite sure what is going on with this flatMap {}
+    // but userDao.checkUser : Success(User) = Try {}
+    // .flatMap { user => createCookie } requires createCookie function to be a "try function".
+    // .map otherwise
+    // In fact, createCookie : Success(cookie) = Try {}
+    // Success() will eventually resolve around a cookie case match = { case Success() => ???; case Failure(th) => ???;}
   }
 
   def register(userCode: String, fullName: String, password: String): Try[Cookie] = {
