@@ -2,9 +2,10 @@ package model
 
 import java.util.UUID
 import play.api.libs.json.Json
+import org.joda.time.DateTime
 
 // the building block of in-memory representation of "event query" result
-case class Tag(id: UUID, text: String)
+case class Tag(id: UUID, text: String, timestamp: DateTime)
 
 /* Questions???
 

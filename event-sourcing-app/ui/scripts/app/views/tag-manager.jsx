@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class TagManager extends React.Component {
   constructor(props) {
@@ -16,12 +16,10 @@ class TagManager extends React.Component {
 
   handleResponse = (response) => {
     if (response.status == 200) {
-      this.props.dispatch({
-        type: 'tags_updated',
-        data: response.data
-      });
-    } else {
-      console.error(response.statusText);
+      this.setState({
+        text: '',
+        tags: response.data
+      })
     }
   };
 
@@ -71,10 +69,10 @@ class TagManager extends React.Component {
       <div className="tag-manager__cloud-panel">
         <div className="tag-manager__cloud-panel__available-tags">
           {tags.map( (tag) => {
-            return <span className="label label-primary"
+            return <p><span className="label label-primary"
                          key={tag.id}>{tag.text}
               <a className="remove-tag-link"
-                 onClick={this.deleteTag(tag.id)}>x</a></span>
+                 onClick={this.deleteTag(tag.id)}>x</a></span></p>
           })}
         </div>
       </div>
@@ -83,8 +81,7 @@ class TagManager extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('mapStateToProps', state);
     return { tags: state.tags }
 }
 
-export default connect(mapStateToProps)(TagManager);
+export default connect(mapStateToProps)(TagManager)

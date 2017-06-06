@@ -46,6 +46,7 @@ class EventStreamActor extends ActorPublisher[JsValue] {
 
   override def receive: Receive = {
     // onNext is defined in the super class of ActorPublisher to send the update js to subscribers
+    // But the question is: WHO are the subscribers?
     case DataUpdated(js) => onNext(js)
     // make a tuple out of the error message and wrap it in JSON
     case ErrorOccurred(message) => onNext(JsObject(Seq("error" -> JsString(message))))

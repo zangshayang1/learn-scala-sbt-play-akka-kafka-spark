@@ -21,7 +21,7 @@ class InMemoryReadDAO(records: Seq[LogRecord]) {
         val event = record.data.as[TagCreated]
         // deserializer --- "as" method signature: def as[T](implicit fjs: Reads[T]) : T
         // detailed explanation in events/TagCreated.scala
-        tags += (event.id -> Tag(event.id, event.text))
+        tags += (event.id -> Tag(event.id, event.text, record.timestamp))
 
       case TagDeleted.actionName =>
         val event = record.data.as[TagDeleted]
@@ -37,6 +37,8 @@ class InMemoryReadDAO(records: Seq[LogRecord]) {
   }
 
   def getTags: Seq[Tag] = {
-    tags.values.toList.sortWith(_.text < _.text)
+    tags.values.toList.sortWith(_.timestamp.millisOfDay.get < _.timestamp.millisOfDay.get)
+    // import org.joda.time.DateTimeComparator
+    // tags.values.toList.sortWith(DateTimeComparator.getInstance())
   }
 }

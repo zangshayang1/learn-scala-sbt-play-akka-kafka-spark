@@ -7,6 +7,7 @@ import akka.stream.Materializer
 
 /*
   In Kafka, each consumer belongs to a particular group.
+  --------------------------------------------------
   Why is it important?
   Well, unlike traditional messaging systems, Kafka doesn’t delete events that have been consumed.
   Instead, after a consumer from one particular group consumes a message, it shifts the message offset for its group.
@@ -17,6 +18,7 @@ import akka.stream.Materializer
     - LogRecordConsumer and TagEventConsumer.
 
   The first one will belong to the log group and subscribe to all known topics.
+    That's why topicName is a Set of Strings.
   The second one will subscribe to the tag topic and belong to the read group.
 
 */
@@ -43,19 +45,22 @@ class ServiceKafkaConsumer(topicName: Set[String],
   import akka.kafka.scaladsl.Consumer
   import akka.stream.scaladsl.Sink
   import scala.concurrent.Future
+  // create an instance of Source[CommittableMessage, Control]
+  // final case class CommittableMessage[K, V]( record: ConsumerRecord[K, V], committableOffset: CommittableOffset)
+  // .mapAsync(1) extract V and map it to msg => {} function.
+  // difference when comparing .mapAsync() and .map() is the former returns Future[T]
+  // also notice how we define Producer and Consumer differently?
+  // it is because Producer.send() is triggered by user activities while Consumer consumes whatever is in the line.
+  // In kafka, Producer can publish events labeled with topic names to their own destinations. Consumer can subscribe to multiple topics.
+  // Question: What is the use of GROUP concept???
   Consumer.committableSource(consumerSettings, Subscriptions.topics(topicName)).mapAsync(1) { msg =>
-    // create an instance of Source[CommittableMessage, Control]
-    // final case class CommittableMessage[K, V]( record: ConsumerRecord[K, V], committableOffset: CommittableOffset)
-    // .mapAsync(1) extract V and map it to msg => {} function.
-    // difference when comparing .mapAsync() and .map() is the former returns Future[T]
     val event: String = msg.record.value()
     // the record field of msg contains the event encoded as a String, extracted by .value()
     handleEvent(event)
     Future.successful(msg)
   }.mapAsync(1) { msg =>
     msg.committableOffset.commitScaladsl()
-    // marks this event as processed in Kafka for this particular consumer group.
+      // marks this event as processed in Kafka for this particular consumer group.
   }.runWith(Sink.ignore)
-
 
 }

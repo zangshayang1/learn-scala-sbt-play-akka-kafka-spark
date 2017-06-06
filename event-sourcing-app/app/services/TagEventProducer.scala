@@ -14,7 +14,9 @@ class TagEventProducer(actorSystem: ActorSystem,
                        configuration: Configuration
                        ) {
 
-  val kafkaProducer = new ServiceKafkaProducer("tag", actorSystem, configuration)
+  import utils.ServiceKafkaProducer
+  val topicName = "tags"
+  val kafkaProducer = new ServiceKafkaProducer(topicName, actorSystem, configuration)
 
   private def createLogRecord(eventData: EventData) : LogRecord = {
     // eventData is a trait defined in /events/EventData, extended by TagCreated and TagDeleted

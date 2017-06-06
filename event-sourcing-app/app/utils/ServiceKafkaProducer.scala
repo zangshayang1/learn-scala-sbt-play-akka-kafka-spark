@@ -1,8 +1,15 @@
-package services
+
+package utils
 
 import akka.actor.ActorSystem
 import play.api.Configuration
 
+
+/*
+  Activities triggered by user with input flow through frontend component and this PRODUCER.
+
+  They become events to a kafka topic.
+*/
 class ServiceKafkaProducer(topicName: String,
                            actorSystem: ActorSystem, // which will be used by the library
                            configuration: Configuration
@@ -26,6 +33,7 @@ class ServiceKafkaProducer(topicName: String,
 
   import org.apache.kafka.clients.producer.ProducerRecord
   def send(logRecordStr: String) : Unit = {
+    // ProducerRecord class is an evelope that specifies the destinaton and payload
     producer.send(new ProducerRecord(topicName, logRecordStr))
   }
 }
