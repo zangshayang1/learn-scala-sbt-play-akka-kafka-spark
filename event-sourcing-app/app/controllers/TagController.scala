@@ -42,7 +42,7 @@ class TagController(tagEventProducer: TagEventProducer,
       the entire method is async
       Consequently, the BadRequest is wrapped with Future[]
   */
-  import scala.concurrent.ExecutionContext.Implicits.global // !@ Implicits @! NOT implicits, NOT Implicit ...
+
   def createTag() = userAuthAction { implicit request =>
     createTagForm.bindFromRequest.fold(
       formWithErrors => BadRequest,
@@ -67,6 +67,7 @@ class TagController(tagEventProducer: TagEventProducer,
     using regular Action instead of UserAuthAction because unauthorized users can query tags as well
   */
   import play.api.mvc.Action
+  import scala.concurrent.ExecutionContext.Implicits.global // !@ Implicits @! NOT implicits, NOT Implicit ...
   def getTags = Action.async { implicit request =>
     val tagsF = readService.getTags
     tagsF.map { tags => Ok(Json.toJson(tags)) }

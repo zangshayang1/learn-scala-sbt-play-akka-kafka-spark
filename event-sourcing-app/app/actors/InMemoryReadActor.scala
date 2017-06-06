@@ -20,6 +20,8 @@ object InMemoryReadActor {
   // this is like a constructor of the actual instance of InMemoryReadActor defined in the following class
   // in previous modern-web-app project, the instantiation of actor is "wired" directly through Props() in appLoader.scala
   // but here we built the constructor because we want to specify arguments???
+  // because you want this actor to hold all the logRecords in memory
+  // however by using kafka, we let kafka servers to hold all the logRecords instead
   def props(logRecords: Seq[LogRecord]) = Props(new InMemoryReadActor(logRecords))
 }
 

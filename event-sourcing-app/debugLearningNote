@@ -1,0 +1,14 @@
+### start the application
+> sbt run -jvm-debug 9999
+
+### install IntelliJ plugin for scala
+
+### open project in IntelliJ as a BST project
+
+### Menu bar -> Run tab -> edit configuration -> add(+) remote -> set port to 9999 and task name = "play-debug"
+
+### Set break point in where you want to take a look
+
+### Menu bar -> Run tab -> hit "play-debug"
+
+### open browser visiting localhost:9000

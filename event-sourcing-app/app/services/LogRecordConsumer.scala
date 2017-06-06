@@ -17,7 +17,9 @@ class LogRecordConsumer(logDao: LogDao,
   val serviceKafkaConsumer = new ServiceKafkaConsumer(topics, "log", materializer, actorSystem, configuration, handleEvent)
 
   private def handleEvent(event: String): Unit = {
+    // event came from Producer and its string content was extracted by ServiceKafkaConsumer
     val maybeGenericEnvelope = LogRecord.decode(event)
+    // why .foreach()? can i use map()?
     maybeGenericEnvelope.foreach { envelope =>
       logDao.insertLogRecord(envelope)
     }

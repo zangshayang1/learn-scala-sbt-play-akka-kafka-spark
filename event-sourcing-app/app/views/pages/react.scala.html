@@ -3,6 +3,31 @@
 @(navigationData: NavigationData, webPageData: WebPageData)
 
 @views.html.main(navigationData, webPageData) {
-    <div class="view-home-composite__react-panel" id="reactDiv">
-    </div>
+
+  <div class="view-home-composite__react-panel" id="reactDiv"></div>
+  <!-- <h3> This box is defined by "form" + "ccs" </h3>
+  <form class="form-horizontal" action="/api/createTag" method="post">
+    <div class="form-group">
+        <div class="col-sm-9"> -->
+
+          <!-- COMMENT
+            when the post request is sent to the backend
+            the data in this form comes in as an object
+            for example, userData() in controllers/TagController: createTag()
+            in which, the way to access each particular field is via userData.text
+            as the following "name" attribute suggests in the <input>
+              COMMENT -->
+
+
+          <!-- <input class="form-control" name="text">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-2">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+  </form> -->
+
+
 }
