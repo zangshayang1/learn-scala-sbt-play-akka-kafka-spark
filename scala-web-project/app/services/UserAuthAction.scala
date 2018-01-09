@@ -28,7 +28,7 @@ class UserAuthAction(authService: AuthService) extends ActionBuilder[UserAuthReq
 
     val maybeUser = authService.checkCookie(request) // check cookies in original request, authService is automatically wired in in AppLoader.scala
     maybeUser match {
-      case Some(user) => block(UserAuthRequest(user, request)) // why it is so different from what we defined in Application.doLogin Action?
+      case Some(user) => block(UserAuthRequest(user, request)) // why it is so different from what we defined in Application.doLogin Action? The "block" is defined in Controller.
       case None => Future.successful(Results.Redirect("/login")) // my guess is here we provided a "framework", set rules for input & output. But the actual input & output is provided in Application.restricted Action. That also explains why we need Future[Result].
     }
   }
